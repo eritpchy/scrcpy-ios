@@ -104,9 +104,9 @@ bool screen_handle_event(struct screen *screen, SDL_Event *event) {
 }
 
 float screen_scale(void) {
-    if ([UIScreen.mainScreen respondsToSelector:@selector(nativeScale)]) {
-        return UIScreen.mainScreen.nativeScale;
-    }
+//    if ([UIScreen.mainScreen respondsToSelector:@selector(nativeScale)]) {
+//        return UIScreen.mainScreen.nativeScale;
+//    }
     return UIScreen.mainScreen.scale;
 }
 

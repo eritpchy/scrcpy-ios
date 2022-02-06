@@ -36,8 +36,12 @@ void NSLogSave(NSString *logText) {
         [logFile truncateFileAtOffset:[logFile seekToEndOfFile]];
     }
     
-    NSError *error;
-    [logFile writeData:[[logText stringByAppendingString:@"\n"] dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+    NSError *error = nil;
+    if (@available(iOS 13.0, *)) {
+        [logFile writeData:[[logText stringByAppendingString:@"\n"] dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+    } else {
+        // Fallback on earlier versions
+    }
     
     if (error != nil) {
         NSLogv([NSString stringWithFormat:@"> Save Log: %@", error.description], NULL);
@@ -81,7 +85,7 @@ void NSLog(NSString *format, ...) {
             titleLabel.font = [UIFont boldSystemFontOfSize:16.f];
             titleLabel;
         }), ({
-            UIButton *closeButton = [UIButton buttonWithType:(UIButtonTypeClose)];
+            UIButton *closeButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
             [closeButton addTarget:self action:@selector(dismissLogs) forControlEvents:UIControlEventTouchUpInside];
             closeButton;
         })]];

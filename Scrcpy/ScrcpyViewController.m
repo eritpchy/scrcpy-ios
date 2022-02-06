@@ -102,16 +102,22 @@ UIKIT_EXTERN UIImage * __nullable UIColorAsImage(UIColor * __nonnull color, CGSi
 }
 
 - (void)setupViews {
-    self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    } else {
+    }
     
     // Custom navigationBar
-    UINavigationBarAppearance* navBarAppearance = [self.navigationController.navigationBar standardAppearance];
-    [navBarAppearance configureWithOpaqueBackground];
-    navBarAppearance.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
-    navBarAppearance.largeTitleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
-    navBarAppearance.backgroundColor = [UIColor colorWithRed:0x33/255.f green:0x99/255.f blue:0x33/255.f alpha:1.0f];
-    self.navigationController.navigationBar.standardAppearance = navBarAppearance;
-    self.navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance;
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance* navBarAppearance = [self.navigationController.navigationBar standardAppearance];
+        [navBarAppearance configureWithOpaqueBackground];
+        navBarAppearance.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+        navBarAppearance.largeTitleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+        navBarAppearance.backgroundColor = [UIColor colorWithRed:0x33/255.f green:0x99/255.f blue:0x33/255.f alpha:1.0f];
+        self.navigationController.navigationBar.standardAppearance = navBarAppearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance;
+    } else {
+    }
     
     // IndicatorView
     [self.indicatorView stopAnimating];
